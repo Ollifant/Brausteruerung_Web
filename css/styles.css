@@ -1,0 +1,44 @@
+a:hover {
+    background-color: yellow;
+  }
+
+body {
+    background-color: #8c8c8c;
+    color: black;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: medium; /* Schriftgröße */
+  }
+
+h1 {
+    
+    color: rgb(8, 8, 8);
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: big; /* Schriftgröße */
+    text-align: center;
+  }
+
+#box{
+
+    background-color: rgb(179, 144, 144);
+    margin: auto;
+    width: 300px;
+    padding: 20px;
+}
+
+#text{
+
+    height: 25px;
+    border-radius: 5px;
+    padding: 4px;
+    border: solid thin #aaa;
+    width: 100%;
+}
+
+#button{
+
+    padding: 10px;
+    width: 100px;
+    color: rgb(5, 5, 5);
+    background-color: rgb(184, 230, 173);
+    border: none;
+}
