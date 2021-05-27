@@ -21,7 +21,29 @@
                 <input id="button" type="submit" value="Eingabe"><br><br>
             </form>
 
-            <a href="monitor.php">Monitor</a><br><br>
+            <?php
+                if(isset($_GET["error"])){
+                    // In der Seiten URL befindet sich eine Error Message
+                    if($_GET["error"] == "emptyinput"){
+                        echo "<p>Alle Felder müssen ausgefüllt sein</p>";
+                    }
+                    elseif ($_GET["error"] == "invalidraste"){
+                        echo "<p>Ungültiger Name für die Raste</p>";
+                    }
+                    elseif ($_GET["error"] == "invalidtemperature"){
+                        echo "<p>Temperatur muss zwischen 0 und 100 Grad liegen</p>";
+                    }
+                    elseif ($_GET["error"] == "invalidduration"){
+                        echo "<p>Dauer muss eine Zahl größer 0 sein</p>";
+                    }
+                    elseif ($_GET["error"] == "dberror"){
+                        echo "<p>Datenbankfehler</p>";
+                    }
+                    elseif ($_GET["error"] == "stmtfailed"){
+                        echo "<p>Datenbankfehler Prepared Statement</p>";
+                    }
+                }
+            ?>
         
         </div>
 

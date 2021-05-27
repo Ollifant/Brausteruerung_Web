@@ -16,23 +16,28 @@
         }
         // Error Handling
         if (emptyInputRasten($nameRaste, $temperaturRaste, $durationRaste) !== false){
-            header("location: ../index.php?eror=emptyinput");
+            header("location: ../index.php?error=emptyinput");
+            exit;
+        }
+
+        if (invalidRastenName($nameRaste) !== false){
+            header("location: ../index.php?error=invalidraste");
             exit;
         }
 
         if (invalidTemperatur($temperaturRaste) !== false){
-            header("location: ../index.php?eror=invalidtemperature");
+            header("location: ../index.php?error=invalidtemperature");
             exit;
         }
 
         if (invalidDuration($durationRaste) !== false){
-            header("location: ../index.php?eror=invalidduration");
+            header("location: ../index.php?error=invalidduration");
             exit;
         }
         // Keine Fehler - Raste kann in DB eingetragen werden
         if (insertRaste($con, $nameRaste, $temperaturRaste, $durationRaste, $jodprobe ) !== true){
             // Raste konnte nicht in DB eingetragen werden
-            header("location: ../index.php?eror=dberror");
+            header("location: ../index.php?error=dberror");
             exit;
         } else{
             header("location: ../temperature.php");
