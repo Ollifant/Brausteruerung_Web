@@ -40,7 +40,7 @@
             header("location: ../index.php?error=dberror");
             exit;
         } else{
-            header("location: ../temperature.php");
+            header("location: ../index.php?error=none");
             exit;
         }
 

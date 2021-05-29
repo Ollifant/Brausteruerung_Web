@@ -6,8 +6,8 @@
     $resultData= mysqli_query($con, $query);
     
 ?>
-
-<div data-role="main" class="ui-content">
+<h1>Das ist die Brausteuerung</h1>
+<div id=box>
   	<h1>Rasten</h1>
     <table id="meineTabelle" data-role="table" class="ui-responsive"
            data-mode="columntoggle" data-column-btn-text="Spalten" >
@@ -42,3 +42,4 @@
     ?>
       </tbody>
     </table>
+ </div>

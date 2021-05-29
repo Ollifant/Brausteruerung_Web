@@ -17,7 +17,7 @@
     function invalidRastenName($nameRaste){
         // Name der Raste darf nur auf Buchstaben und Ziffern bestehen
         // Regulären Ausdruck prüfen
-        if(!preg_match("/^[a-zA-Z0-9]*$/", $nameRaste)){
+        if(!preg_match("/^[a-zßäüöA-ZÄÖÜ0-9]*$/", $nameRaste)){
             // Falsches Zeichen gefunden
             $result = true;
         } 
@@ -73,7 +73,7 @@
         // Prüfen, ob das Prepared Statement funktioniert
         if(!mysqli_stmt_prepare($stmt, $sql)){
             // SQL Statement ist fehlerhaft
-            header("location: ../index.php?stmtfailed");
+            header("location: ../index.php?error=stmtfailed");
             exit;
         }
 
@@ -83,6 +83,13 @@
         $result = mysqli_stmt_execute($stmt);
         // Prepared Statement schließen
         mysqli_stmt_close($stmt);
+
+        return $result;
+    }
+
+    function deletetRasten($con){
+        $query = "DELETE FROM rasten";
+        $result = mysqli_query($con, $query);   
 
         return $result;
     }

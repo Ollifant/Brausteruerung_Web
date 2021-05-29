@@ -1,12 +1,16 @@
 <?php
     include_once 'header.php';
     
+    require_once 'includes/connection.inc.php';
+
+    $query = "SELECT * FROM rasten";
+    $resultData= mysqli_query($con, $query);
 ?>
     
-        <h1>Das ist die Brausteuerung</h1>
+        <h1>Brausteuerung</h1>
 
         <div id=box>
-            <div style="font-size: 20px; margin: 10px;">Neue Raste erstellen</div>
+            <h2>Neue Raste erstellen</h2>
             <form action="includes/rasten.inc.php" method="post">
                 <label for="raste">Name der Raste</label>    
                 <input id="text" type="text" name="raste" id="raste" placeholder="Name der Raste"><br><br>
@@ -42,10 +46,69 @@
                     elseif ($_GET["error"] == "stmtfailed"){
                         echo "<p>Datenbankfehler Prepared Statement</p>";
                     }
+                    elseif ($_GET["error"] == "none"){
+                        echo "<p>Raste hinzugefügt</p>";
+                    }
                 }
             ?>
         
         </div>
+
+
+        <div id=box>
+            <h2>Brauverlauf</h2>
+            <table id="meineTabelle" data-role="table" class="ui-responsive"
+                data-mode="columntoggle" data-column-btn-text="Spalten" >
+            <thead>
+                <tr>
+                <th>Raste</th>
+                <th data-priority="1">Temperatur (Grad Celsius)</th>
+                <th data-priority="2">Dauer (Minuten)</th>
+                <th data-priority="3">Jodprobe</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            while($data = mysqli_fetch_assoc($resultData)){
+            ?>
+                <tr>
+                    <td>
+                        <?php echo $data["rastenName"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $data["rastenSollTemp"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $data["rastenDur"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $data["rastenJod"]; ?>
+                    </td>          
+            </tr>
+            <?php
+            }
+            ?>
+            </tbody>
+            </table>
+            <br><br>
+            <form action="includes/recipie.inc.php" method="get">  
+                <input type='hidden' value="yes" name='delete'>              
+                <input id="button" type="submit" value="Rasten Löschen">
+            </form>
+
+            <?php
+                if(isset($_GET["error"])){
+                    // In der Seiten URL befindet sich eine Error Message
+                    if($_GET["error"] == "dberrordel"){
+                        echo "<p>Fehler beim Löschen der Rasten</p>";
+                    }
+                    elseif ($_GET["error"] == "nodberror"){
+                        echo "<p>Rasten gelöscht</p>";
+                    }
+                }
+            ?>
+        </div>
+        
 
     </body>
 </html>
