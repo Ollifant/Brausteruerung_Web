@@ -1,13 +1,12 @@
 <?php
     include_once 'header.php';
-    
     require_once 'includes/connection.inc.php';
+    require_once 'includes/functions.inc.php';
 
-    $query = "SELECT * FROM rasten";
-    $resultData= mysqli_query($con, $query);
+    $brewState = getBrewState($con);
+    echo "<h1>Brausteuerung - Status: $brewState </h1>";
 ?>
-    
-        <h1>Brausteuerung</h1>
+        
 
         <div id=box>
             <h2>Neue Raste erstellen</h2>
@@ -69,6 +68,8 @@
             </thead>
             <tbody>
             <?php
+            $query = "SELECT * FROM rasten";
+            $resultData= mysqli_query($con, $query);
             while($data = mysqli_fetch_assoc($resultData)){
             ?>
                 <tr>

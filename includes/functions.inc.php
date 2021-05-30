@@ -93,3 +93,46 @@
 
         return $result;
     }
+
+    function jodprobe($con){
+        // Status der Jodprobe aus DB lesen
+        $query = "SELECT state FROM Status WHERE StateName = 'Jodprobe'";
+        $resultData= mysqli_query($con, $query);
+        // Datensatz lesen
+        $data = mysqli_fetch_assoc($resultData);
+
+        if($data["state"] == "Wait"){
+            $result = true;
+        }
+        else{
+            $result = false;
+        }
+        return $result;
+    }
+
+    function updateJodprobe($con, $input){
+        // Status der Jodprobe setzen
+        $query = "UPDATE Status SET State = '$input' WHERE StateName = 'Jodprobe'";
+        $result = mysqli_query($con, $query);   
+
+        return $result;
+    }
+
+    function getBrewstate($con){
+        // Status des Brewstate aus DB lesen
+        $query = "SELECT state FROM Status WHERE StateName = 'Brewstate'";
+        $resultData= mysqli_query($con, $query);
+        // Datensatz lesen
+        $data = mysqli_fetch_assoc($resultData);
+
+        return $data["state"];
+    }
+
+    function setBrewState($con, $state){
+        // Braustatus setzen
+        $query = "UPDATE Status SET State = '$state' WHERE StateName = 'BrewState'";
+        $result = mysqli_query($con, $query);   
+
+        return $result;
+
+    }
