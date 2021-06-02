@@ -26,20 +26,26 @@
 
 <div id=box>
   <h2>Braustatus setzen</h2>
+  
   <?php
       $brewState = getBrewState($con);
       echo "<h3>Aktueller Status: $brewState </h3>";
+    
     ?>
   <form action="includes/state.inc.php" method="get">
       <p>Status auswählen:</p>
-      <input type="radio" id="done" name="state" value="Done">
-      <label for="done">Done</label><br>
+      <input type="radio" id="off" name="state" value="Off">
+      <label for="off">Off</label><br>
+      <input type="radio" id="select" name="state" value="Select">
+      <label for="select">Select</label><br>
       <input type="radio" id="wait" name="state" value="Wait" checked="checked">
       <label for="wait">Wait</label><br>
-      <input type="radio" id="running" name="state" value="Running">
-      <label for="running">Running</label><br>
       <input type="radio" id="go" name="state" value="Go">
       <label for="go">Go</label><br>
+      <input type="radio" id="running" name="state" value="Running">
+      <label for="running">Running</label><br>
+      <input type="radio" id="done" name="state" value="Done">
+      <label for="done">Done</label><br>
       <br>    
       <input id="button" type="submit" value="Eingabe"><br><br>
   </form>

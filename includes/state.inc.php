@@ -7,6 +7,14 @@
         // Der Eingabe-Button wurde gedrückt
         
         $state = $_GET['state'];
+
+        if($state == "Select"){
+            // Bei Select muss der Modus auf Wait gesetzt werden
+            if (setMode($con, "Wait") !== true){
+                header("location: ../temperature.php?error=stateerror");
+                exit;
+            }
+        }
         // Neuen Status setzen
         if (setBrewState($con, $state) == true){
             header("location: ../temperature.php?error=nostateerror");

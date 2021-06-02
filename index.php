@@ -4,6 +4,16 @@
     require_once 'includes/functions.inc.php';
 
     $brewState = getBrewState($con);
+    if($brewState == "Running" || $brewState == "Go"){
+        // Brauvorgang läuft bereits - keine Aktion möglich
+        header("location: monitor.php");
+        exit;
+    }
+    if($brewState == "Select"){
+        // Auswahl nötig
+        header("location: select.php");
+        exit;
+    }
     echo "<h1>Brausteuerung - Status: $brewState </h1>";
 ?>
         
@@ -44,6 +54,9 @@
                     }
                     elseif ($_GET["error"] == "stmtfailed"){
                         echo "<p>Datenbankfehler Prepared Statement</p>";
+                    }
+                    elseif ($_GET["error"] == "wrongstate"){
+                        echo "<p>Brausteuerung läuft - keine neuen Rasten</p>";
                     }
                     elseif ($_GET["error"] == "none"){
                         echo "<p>Raste hinzugefügt</p>";
@@ -96,16 +109,32 @@
                 <input type='hidden' value="yes" name='delete'>              
                 <input id="button" type="submit" value="Rasten Löschen">
             </form>
+            <br>
+            <form action="includes/recipie.inc.php" method="get">  
+                <input type='hidden' value="yes" name='startBrew'>              
+                <input id="button" type="submit" value="Brauvorgang starten">
+            </form>
 
             <?php
                 if(isset($_GET["error"])){
                     // In der Seiten URL befindet sich eine Error Message
-                    if($_GET["error"] == "dberrordel"){
-                        echo "<p>Fehler beim Löschen der Rasten</p>";
-                    }
-                    elseif ($_GET["error"] == "nodberror"){
-                        echo "<p>Rasten gelöscht</p>";
-                    }
+                    switch($_GET["error"]){
+                        case "dberrordel":
+                            echo "<p>Fehler beim Löschen der Rasten</p>";
+                            break;
+                        case "nodberror" :
+                            echo "<p>Rasten gelöscht</p>";
+                            break;
+                        case "wrongstate":
+                            echo "<p>Brausystem nicht bereit</p>";
+                            break;
+                        case "dberrorbrew":
+                            echo "<p>Fehler beim Schreiben in DB</p>";
+                            break;
+                        case "nodelete":
+                            echo "<p>Brausteuerung läuft bereits</p>";
+                            break;
+                }
                 }
             ?>
         </div>

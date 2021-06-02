@@ -136,3 +136,22 @@
         return $result;
 
     }
+
+    function getMode($con){
+        // Status des Modus aus DB lesen
+        $query = "SELECT state FROM Status WHERE StateName = 'Modus'";
+        $resultData= mysqli_query($con, $query);
+        // Datensatz lesen
+        $data = mysqli_fetch_assoc($resultData);
+
+        return $data["state"];
+    }
+
+    function setMode($con, $state){
+        // Braustatus setzen
+        $query = "UPDATE Status SET State = '$state' WHERE StateName = 'Modus'";
+        $result = mysqli_query($con, $query);   
+
+        return $result;
+
+    }

@@ -3,6 +3,13 @@
     require_once 'functions.inc.php';
 
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
+        $brewState = getBrewState($con);
+        if($brewState == "Running" || $brewState == "Go"){
+            // Brausteuerung läuft - neue Rasten können nicht erstellt werden (sollte nicht auftreten können)
+            header("location: ../index.php?error=wrongstate");
+            exit;
+        }
         
         // Der Eingabe-Button wurde gedrückt
         $nameRaste = $_POST['raste'];
